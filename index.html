@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Parameters Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+            padding: 8px;
+            background-color: #f4f4f4;
+            border-radius: 4px;
+        }
+        li strong {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+      <div>
+        <h1>BalaIDM: Query Parameters Viewer</h1>
+        <p class="lead">Displays every query parameter from the URL (works on GitHub Pages). Shows duplicate keys and decodes values.</p>
+      </div>
+    <ul id="queryParametersList">
+        <!-- Query parameters will be displayed here -->
+    </ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const queryParametersList = document.getElementById('queryParametersList');
+            const urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.toString() === '') {
+                const noParamsItem = document.createElement('li');
+                noParamsItem.textContent = 'No query parameters found in the URL.';
+                queryParametersList.appendChild(noParamsItem);
+            } else {
+                for (const [key, value] of urlParams.entries()) {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<strong>${decodeURIComponent(key)}</strong>: ${decodeURIComponent(value)}`;
+                    queryParametersList.appendChild(listItem);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
